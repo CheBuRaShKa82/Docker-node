@@ -1,0 +1,14 @@
+services:
+  phicoin:
+    image: phicoin:latest
+    container_name: phi
+    environment:
+      - TZ=Europe/Moscow
+      - PHICOIN_RPC_PASSWORD=default
+      - PHICOIN_RPC_USER=default
+    ports:
+      - 18964:18964
+      - 18965:18965
+    volumes:
+      - /home/phi/phicoin-data:/data
+    restart: always

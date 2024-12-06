@@ -1,0 +1,12 @@
+services:
+  portainer:
+    image: bitcoinoil:latest
+    container_name: btco
+    environment:
+      - TZ=Europe/Moscow
+    ports:
+      - 19711:19711
+      - 127.0.0.1:19712:19712
+    volumes:
+      - /home/btco/bitcoinoil-data:/data
+    restart: always
