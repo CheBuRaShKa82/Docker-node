@@ -4,6 +4,8 @@ services:
     container_name: btco
     environment:
       - TZ=Europe/Moscow
+      - BITCOINOIL_RPC_PASSWORD=default
+      - BITCOINOIL_RPC_USER=default
     ports:
       - 19711:19711
       - 127.0.0.1:19712:19712

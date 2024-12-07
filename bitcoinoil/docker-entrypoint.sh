@@ -8,18 +8,18 @@ PATH="/usr/local/bin:$PATH"
 BITCOINOIL_DATA=${BITCOINOIL_DATA:-/data}
 
 # Указываем путь к исполняемому файлу, если требуется
-BITCOIND_BIN=${BITCOIND_BIN:-bitcoinoild}
+BITCOINOILD_BIN=${BITCOINOILD_BIN:-bitcoinoild}
 
 # Проверяем, является ли первый аргумент опцией (начинается с '-')
 if [ -n "$1" ] && [ "$(echo "$1" | cut -c1)" = "-" ]; then
-    echo "$0: assuming arguments for $BITCOIND_BIN"
-    set -- "$BITCOIND_BIN" "$@"
+    echo "$0: assuming arguments for $BITCOINOILD_BIN"
+    set -- "$BITCOINOILD_BIN" "$@"
 fi
 
 # Настраиваем директорию данных, если это `bitcoinoild`, `bitcoinoil-cli` или `bitcoinoil-tx`
-if [ "$1" = "$BITCOIND_BIN" ] || [ "$1" = "bitcoinoil-cli" ] || [ "$1" = "bitcoinoil-tx" ]; then
+if [ "$1" = "$BITCOINOILD_BIN" ] || [ "$1" = "bitcoinoil-cli" ] || [ "$1" = "bitcoinoil-tx" ]; then
     mkdir -p "$BITCOINOIL_DATA"
-    chmod 770 "$BITCOINOIL_DATA" || echo "$0: Could not chmod $BITCOINOIL_DATA (permissions issue)" >&2
+    chmod 775 "$BITCOINOIL_DATA" || echo "$0: Could not chmod $BITCOINOIL_DATA (permissions issue)" >&2
     chown -R bitcoinoil "$BITCOINOIL_DATA" || echo "$0: Could not chown $BITCOINOIL_DATA (permissions issue)" >&2
     echo "$0: setting data directory to $BITCOINOIL_DATA"
     set -- "$@" -datadir="$BITCOINOIL_DATA"
@@ -37,8 +37,8 @@ if [ "$(id -u)" = "0" ]; then
     fi
 
     # Проверяем наличие исполняемого файла bitcoinoild
-    if ! command -v "$BITCOIND_BIN" >/dev/null 2>&1; then
-        echo "$0: $BITCOIND_BIN is not found in PATH. Please ensure it is installed and accessible." >&2
+    if ! command -v "$BITCOINOILD_BIN" >/dev/null 2>&1; then
+        echo "$0: $BITCOINOILD_BIN is not found in PATH. Please ensure it is installed and accessible." >&2
         exit 1
     fi
 

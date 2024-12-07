@@ -29,7 +29,7 @@ RUN set -ex \
     chmod +x /usr/local/bin/bitcoinoild
 
 # Создаем том для данных
-VOLUME ["/home/bitcoinoil/.bitcoinoil"]
+VOLUME /data
 
 # Копируем скрипт начальной точки
 COPY docker-entrypoint.sh /entrypoint.sh
