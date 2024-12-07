@@ -28,11 +28,17 @@ RUN set -ex \
 	rm -rf /tmp/*; \
     chmod +x /usr/local/bin/bitcoinoild
 
-# Создаем том для данных
+# Настраиваем директорию для данных
+ENV BITCOINOIL_DATA=/data
+RUN mkdir -p "$BITCOINOIL_DATA" \
+    && chown -R bitcoinoil:bitcoinoil "$BITCOINOIL_DATA" \
+    && ln -sfn "$BITCOINOIL_DATA" /home/bitcoinoil/.bitcoinoil \
+    && chown -h bitcoinoil:bitcoinoil /home/bitcoinoil/.bitcoinoil
 VOLUME /data
 
-# Копируем скрипт начальной точки
+# Добавляем скрипт входа
 COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Открываем необходимые порты
